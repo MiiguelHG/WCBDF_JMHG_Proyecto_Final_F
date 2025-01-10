@@ -1,0 +1,30 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Navbar</a>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button> -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/inicio" routerLinkActive="active" ariaCurrentWhenActive="page">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/invoices" routerLinkActive="active" ariaCurrentWhenActive="page">Invoices</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/creditos" routerLinkActive="active" ariaCurrentWhenActive="page">Creditos</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-danger" type="submit">Salir</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<router-outlet/>
+
+

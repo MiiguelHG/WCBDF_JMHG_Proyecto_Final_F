@@ -21,6 +21,8 @@ export class LoginComponent {
     password: ''
   };
 
+  errorMessage: string | null = null;
+
   constructor(private router: Router) {}
 
   obtenerCredenciales(loginForm: NgForm) {
@@ -39,12 +41,12 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
         } else {
           // Mostrar un mensaje de error
-          alert(response.message.toString());
+          this.errorMessage = response.message.toString();
         }
       },
       error: (error: HttpErrorResponse) => {
         // Mostrar un mensaje de error basado en el error de la API
-        alert(error.error.message || 'Error desconocido');
+        this.errorMessage = error.error.message || 'Error desconocido';
       }
     });
   }

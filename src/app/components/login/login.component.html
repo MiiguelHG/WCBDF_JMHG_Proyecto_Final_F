@@ -38,6 +38,7 @@
                                     La contraseña es obligatoria.
                                 </div>
                             </div>
+                            <div *ngIf="errorMessage" class="text-danger mb-3">{{ errorMessage }}</div>
                             <button type="submit" class="btn btn-primary">Ingresar</button>
                         </form>
                     </div>

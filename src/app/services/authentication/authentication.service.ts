@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../../data/user';
 import { UserResponse } from '../../data/response-user';
 
@@ -14,5 +14,9 @@ export class AuthenticationService {
 
   login(user: User): Observable<UserResponse> {
     return this.http.post<UserResponse>(this.urlApi, user);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError(error);
   }
 }

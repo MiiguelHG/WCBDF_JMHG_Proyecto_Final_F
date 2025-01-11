@@ -9,20 +9,20 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="fecha" class="form-label">Date</label>
-            <input type="date"  class="form-control" id="fecha" name="fecha" >
+            <input type="date"  class="form-control" id="fecha" name="fecha" [(ngModel)]="currentInvoice.invoiceDate">
           </div>
           <div class="mb-3">
             <label for="amount" class="form-label">Amount</label>
-            <input type="number" class="form-control" id="amount" name="amount" >
+            <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="currentInvoice.amount">
           </div>
           <div class="mb-3">
             <label for="customerId" class="form-label">CustomerId</label>
-            <input type="number" class="form-control" id="customerId" name="customerId" >
+            <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="currentInvoice.customerId">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="currentInvoice.id !== undefined && actualizarInvoice(currentInvoice.id)">Guardar</button>
         </div>
       </div>
     </div>
@@ -39,20 +39,20 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="fecha" class="form-label">Date</label>
-            <input type="date"  class="form-control" id="fecha" name="fecha" >
+            <input type="date"  class="form-control" id="fecha" name="fecha" [(ngModel)]="newInvoice.invoiceDate">
           </div>
           <div class="mb-3">
             <label for="amount" class="form-label">Amount</label>
-            <input type="number" class="form-control" id="amount" name="amount">
+            <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="newInvoice.amount">
           </div>
           <div class="mb-3">
             <label for="customerId" class="form-label">CustomerId</label>
-            <input type="number" class="form-control" id="customerId" name="customerId" >
+            <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="newInvoice.customerId">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Guardar</button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="crearInvoice()">Guardar</button>
         </div>
       </div>
     </div>
@@ -61,12 +61,17 @@
 <!-- Boton para agregar -->
 <div class="container mt-5">
     <h3>listado de invoices</h3>
-    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#agregarInvoice">Agregar</button>
+</div>
+
+<div class="container">
+  <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#agregarInvoice">Agregar</button>
 </div>
 
 <!-- Tabla -->
-<div class="container">
-    <table class="table table-hover">
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">id</th>
@@ -77,16 +82,21 @@
           </tr>
         </thead>
         <tbody>
+          @for (invoice of invoicesList; track invoice.id) {
           <tr>
-            <th scope="row"> 1 </th>
-            <td> 2024-11- 20 </td>
-            <td> 250.25 </td>
-            <td> 86 </td>
+            <th scope="row"> {{invoice.id}} </th>
+            <td> {{invoice.invoiceDate}} </td>
+            <td> {{invoice.amount}} </td>
+            <td> {{invoice.customerId}} </td>
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Actualizar</button> &nbsp;
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="invoice.id !== undefined && ObtenerInvoicePorId(invoice.id)">Actualizar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="invoice.id !== undefined && eliminarInvoice(invoice.id)">Eliminar</button>
             </td>
           </tr>
+        }
         </tbody>
-    </table>    
+      </table> 
+    </div>
+  </div>
+       
 </div>

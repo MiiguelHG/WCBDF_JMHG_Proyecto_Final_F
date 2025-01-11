@@ -4,6 +4,8 @@ import { Invoice } from '../../data/invoice';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-invoices',
   imports: [FormsModule],
@@ -28,7 +30,7 @@ export class InvoicesComponent {
     customerId: 0
   }
 
-  permisos = 'No tienes los permisos para realizar esta accion';
+  errorMessage: string = 'No tienes los permisos para realizar esta acción';
 
   constructor() {
     this.cargarInvoices();
@@ -41,7 +43,7 @@ export class InvoicesComponent {
         if (response.status === 1) {
           this.invoicesList = response.data;
         } else {
-          alert(response.message.toString());
+          this.openErrorModal();
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -57,11 +59,11 @@ export class InvoicesComponent {
         if (response.status === 1) {
           this.currentInvoice = response.data;
         } else {
-          alert(response.message.toString());
+          this.openErrorModal();
         }
       },
       error: (error: HttpErrorResponse) => {
-        alert(`${error.status}: ${this.permisos}` || 'Error desconocido');
+        this.openErrorModal();
       }
     })
   }
@@ -79,11 +81,11 @@ export class InvoicesComponent {
             }
             this.cargarInvoices();
           } else {
-            alert(response.message.toString());
+            this.openErrorModal();
           }
         },
         error: (error: HttpErrorResponse) => {
-          alert(`${error.status}: ${this.permisos}` || 'Error desconocido');
+          this.openErrorModal();
         }
       })
     }
@@ -96,11 +98,11 @@ export class InvoicesComponent {
         if (response.status === 1) {
           this.cargarInvoices();
         } else {
-          alert(response.message.toString());
+          this.openErrorModal();
         }
       },
       error: (error: HttpErrorResponse) => {
-        alert(`${error.status}: ${this.permisos}` || 'Error desconocido');
+        this.openErrorModal();
       }
     })
   }
@@ -112,13 +114,19 @@ export class InvoicesComponent {
         if (response.status === 1) {
           this.cargarInvoices();
         } else {
-          alert(response.message.toString());
+          this.openErrorModal();
         }
       },
       error: (error: HttpErrorResponse) => {
-        alert(`${error.status}: ${this.permisos}` || 'Error desconocido');
+        this.openErrorModal();
       }
     })
+  }
+
+  // Mostrar el modal de error
+  openErrorModal() {
+    const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    errorModal.show();
   }
 
 
